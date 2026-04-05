@@ -4,23 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Marketing Content Studio — MBA Edition</title>
-<meta name="description" content="AI-powered marketing content studio for MBA students. Generate social media posts, blog articles, ad copy, and emails instantly." />
+<meta name="description" content="AI-powered marketing content studio for MBA students." />
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #13131a;
-    --surface2: #1c1c27;
-    --border: rgba(255,255,255,0.08);
-    --border-hover: rgba(255,255,255,0.16);
-    --accent: #4f7fff;
-    --accent2: #7c5cfc;
-    --text: #f0f0f8;
-    --text-muted: #7a7a9a;
-    --text-dim: #4a4a6a;
-    --success: #2ecc71;
-    --radius: 12px;
-    --radius-sm: 8px;
+    --bg: #0a0a0f; --surface: #13131a; --surface2: #1c1c27;
+    --border: rgba(255,255,255,0.08); --border-hover: rgba(255,255,255,0.16);
+    --accent: #4f7fff; --accent2: #7c5cfc; --text: #f0f0f8;
+    --text-muted: #7a7a9a; --text-dim: #4a4a6a; --success: #2ecc71;
+    --radius: 12px; --radius-sm: 8px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
@@ -36,16 +28,14 @@
   .tab { padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); font-size: 13px; cursor: pointer; color: var(--text-muted); font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
   .tab:hover { border-color: var(--border-hover); color: var(--text); }
   .tab.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-color: transparent; font-weight: 500; }
-  .panel { display: none; }
-  .panel.active { display: block; }
+  .panel { display: none; } .panel.active { display: block; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
-  .section-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 16px; letter-spacing: -0.2px; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 16px; }
   .field { margin-bottom: 14px; }
   .field-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
   input, select, textarea { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; }
   input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-  select { cursor: pointer; }
-  textarea { resize: vertical; min-height: 80px; }
+  select { cursor: pointer; } textarea { resize: vertical; min-height: 80px; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
   @media (max-width: 500px) { .row { grid-template-columns: 1fr; } }
   .badge-group { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -85,7 +75,7 @@
     <div class="logo">MC</div>
     <div class="header-info">
       <div class="header-title">Marketing Content Studio</div>
-      <div class="header-sub">Content Creation </div>
+      <div class="header-sub">Content Creation for MBA Students</div>
     </div>
     <div class="header-badge">AI Powered</div>
   </div>
@@ -99,7 +89,6 @@
     <div class="tab" onclick="switchTab('analyzer')">Copy Analyzer</div>
   </div>
 
-  <!-- SOCIAL -->
   <div class="panel active" id="panel-social">
     <div class="card">
       <div class="section-title">Social Media Post Generator</div>
@@ -130,7 +119,6 @@
     </div>
   </div>
 
-  <!-- BLOG -->
   <div class="panel" id="panel-blog">
     <div class="card">
       <div class="section-title">Blog Article Builder</div>
@@ -151,7 +139,6 @@
     </div>
   </div>
 
-  <!-- AD -->
   <div class="panel" id="panel-ad">
     <div class="card">
       <div class="section-title">Ad Copy Generator</div>
@@ -172,7 +159,6 @@
     </div>
   </div>
 
-  <!-- EMAIL -->
   <div class="panel" id="panel-email">
     <div class="card">
       <div class="section-title">Email Campaign Writer</div>
@@ -192,7 +178,6 @@
     </div>
   </div>
 
-  <!-- TIPS -->
   <div class="panel" id="panel-tips">
     <div class="card">
       <div class="section-title">Copywriting Frameworks</div>
@@ -205,12 +190,11 @@
     </div>
   </div>
 
-  <!-- ANALYZER -->
   <div class="panel" id="panel-analyzer">
     <div class="card">
       <div class="section-title">Copy Analyzer</div>
       <div class="field"><div class="field-label">Paste Your Copy Below</div>
-        <textarea id="analyze-input" style="min-height:110px" placeholder="Paste any marketing copy — ad, email, social post — to get instant AI feedback..."></textarea></div>
+        <textarea id="analyze-input" style="min-height:110px" placeholder="Paste any marketing copy to get instant AI feedback..."></textarea></div>
       <div class="flex-end"><button class="btn btn-primary" onclick="analyzeCopy()">Analyze Copy →</button></div>
       <div id="analyze-output" style="display:none; margin-top:16px">
         <div class="scores-grid">
@@ -233,7 +217,7 @@
 <div id="toast">Copied to clipboard!</div>
 
 <script>
-const GEMINI_API_KEY = 'AIzaSyApafiVi29QWyIIGMGAkA64kcBHg14Ysqg';
+const GEMINI_API_KEY = 'AIzaSyCDZ4YdfIAraOvPQfgfB44CHiOAl6n9JQM';
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY;
 
 function switchTab(id) {
@@ -242,28 +226,24 @@ function switchTab(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + id).classList.add('active');
 }
-
 function toggleBadge(el) { el.classList.toggle('sel'); }
-
 function getSelectedBadges(containerId) {
   return Array.from(document.querySelectorAll('#' + containerId + ' .badge.sel')).map(b => b.textContent).join(', ');
 }
-
 async function callGemini(prompt) {
   const res = await fetch(GEMINI_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
   });
+  if (!res.ok) throw new Error('API error: ' + res.status);
   const data = await res.json();
   return data.candidates[0].content.parts[0].text;
 }
-
 function setLoading(textId, outputId) {
   document.getElementById(outputId).style.display = 'block';
   document.getElementById(textId).innerHTML = '<span class="loading-spinner"></span> Generating...';
 }
-
 async function generateContent(type) {
   let prompt = '', textId = '', outputId = '';
   if (type === 'social') {
@@ -302,10 +282,9 @@ async function generateContent(type) {
     const result = await callGemini(prompt);
     document.getElementById(textId).textContent = result;
   } catch (e) {
-    document.getElementById(textId).textContent = 'Error generating content. Please try again.';
+    document.getElementById(textId).textContent = 'Error: ' + e.message + '. Please try again in a moment.';
   }
 }
-
 async function analyzeCopy() {
   const text = document.getElementById('analyze-input').value;
   if (!text.trim()) { alert('Please paste some copy first.'); return; }
@@ -329,7 +308,6 @@ async function analyzeCopy() {
     document.getElementById('analyze-feedback').textContent = 'Could not parse analysis. Please try again.';
   }
 }
-
 function copyOutput(id) {
   const text = document.getElementById(id).textContent;
   navigator.clipboard.writeText(text).then(() => {
