@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Marketing Content Studio — MBA Edition</title>
-<meta name="description" content="AI-powered marketing content studio." />
+<meta name="description" content="AI-powered marketing content studio for MBA students." />
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -12,18 +12,70 @@
     --border: rgba(255,255,255,0.08); --border-hover: rgba(255,255,255,0.16);
     --accent: #4f7fff; --accent2: #7c5cfc; --text: #f0f0f8;
     --text-muted: #7a7a9a; --text-dim: #4a4a6a; --success: #2ecc71;
-    --radius: 12px; --radius-sm: 8px;
+    --error: #e74c3c; --radius: 12px; --radius-sm: 8px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
   .wrapper { max-width: 900px; margin: 0 auto; padding: 24px 16px 80px; }
+
+  /* API KEY SCREEN */
+  #api-screen {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .api-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 40px; max-width: 480px; width: 100%;
+    text-align: center;
+  }
+  .api-logo {
+    width: 60px; height: 60px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 22px;
+    color: #fff; margin: 0 auto 20px;
+  }
+  .api-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .api-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; }
+  .api-input-wrap { position: relative; margin-bottom: 12px; text-align: left; }
+  .api-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
+  .api-input {
+    width: 100%; padding: 12px 14px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    color: var(--text); font-size: 13px; font-family: 'DM Sans', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .api-input:focus { border-color: var(--accent); }
+  .api-btn {
+    width: 100%; padding: 13px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; border: none; font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s; margin-bottom: 16px;
+  }
+  .api-btn:hover { opacity: 0.9; }
+  .api-error { color: var(--error); font-size: 12px; margin-bottom: 12px; display: none; }
+  .api-help {
+    background: var(--surface2); border-radius: var(--radius-sm);
+    padding: 14px; text-align: left; margin-top: 16px;
+  }
+  .api-help-title { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+  .api-help-step { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .api-help a { color: var(--accent); text-decoration: none; }
+
+  /* MAIN APP */
+  #app-screen { display: none; }
   .header { display: flex; align-items: center; gap: 14px; padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 24px; position: relative; overflow: hidden; }
   .header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(79,127,255,0.15), transparent 70%); pointer-events: none; }
   .logo { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: #fff; flex-shrink: 0; }
   .header-info { flex: 1; }
   .header-title { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; font-family: 'Syne', sans-serif; }
   .header-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .header-right { display: flex; align-items: center; gap: 8px; }
   .header-badge { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: rgba(79,127,255,0.15); color: var(--accent); border: 1px solid rgba(79,127,255,0.3); font-weight: 500; }
+  .change-key-btn { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .change-key-btn:hover { color: var(--text); border-color: var(--border-hover); }
+
   .tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
   .tab { padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); font-size: 13px; cursor: pointer; color: var(--text-muted); font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
   .tab:hover { border-color: var(--border-hover); color: var(--text); }
@@ -67,17 +119,56 @@
   .footer span { color: var(--accent); }
   #toast { position: fixed; bottom: 30px; right: 30px; background: var(--success); color: #fff; padding: 10px 20px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
   #toast.show { opacity: 1; }
+  .rate-info { background: rgba(79,127,255,0.08); border: 1px solid rgba(79,127,255,0.2); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: var(--text-muted); }
+  .rate-info span { color: var(--accent); font-weight: 500; }
 </style>
 </head>
 <body>
+
+<!-- API KEY SCREEN -->
+<div id="api-screen">
+  <div class="api-box">
+    <div class="api-logo">MC</div>
+    <div class="api-title">Marketing Content Studio</div>
+    <div class="api-sub">Enter your free Google Gemini API key to start generating marketing content instantly. Your key is saved only in your browser.</div>
+
+    <div class="api-error" id="api-error">Invalid API key. Please check and try again.</div>
+
+    <div class="api-input-wrap">
+      <label class="api-label">Your Gemini API Key</label>
+      <input class="api-input" type="text" id="api-key-input" placeholder="AIzaSy..." />
+    </div>
+
+    <button class="api-btn" onclick="saveApiKey()">Start Creating Content →</button>
+
+    <div class="api-help">
+      <div class="api-help-title">How to get your FREE API key:</div>
+      <div class="api-help-step">1. Go to <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a></div>
+      <div class="api-help-step">2. Sign in with your Gmail account</div>
+      <div class="api-help-step">3. Click "Get API Key" → "Create API Key"</div>
+      <div class="api-help-step">4. Copy the key and paste it above</div>
+      <div class="api-help-step" style="margin-top:8px; color: #4f7fff;">Free tier: 15 requests/minute · 1500/day</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app-screen">
 <div class="wrapper">
   <div class="header">
     <div class="logo">MC</div>
     <div class="header-info">
       <div class="header-title">Marketing Content Studio</div>
-      <div class="header-sub">Content Creation</div>
+      <div class="header-sub">Content Creation for MBA Students</div>
     </div>
-    <div class="header-badge">AI Powered</div>
+    <div class="header-right">
+      <div class="header-badge">AI Powered</div>
+      <button class="change-key-btn" onclick="changeKey()">Change Key</button>
+    </div>
+  </div>
+
+  <div class="rate-info">
+    Free Gemini API allows <span>15 requests per minute</span> and <span>1,500 per day</span>. If you get an error, wait 60 seconds and try again.
   </div>
 
   <div class="tabs">
@@ -185,7 +276,7 @@
       <div class="tip-card"><div class="tip-title">PAS — Problem, Agitate, Solution</div><div class="tip-body">Identify the pain point, make it feel urgent, then present your product as the only logical solution. Highly effective in email marketing.</div></div>
       <div class="tip-card"><div class="tip-title">BAB — Before, After, Bridge</div><div class="tip-body">Paint the "before" state (struggle), show the "after" (success), then bridge the gap with your offer. Great for testimonials and case studies.</div></div>
       <div class="tip-card"><div class="tip-title">The Power of One</div><div class="tip-body">One big idea, one key emotion, one specific reader, one clear CTA. Focused copy always outperforms scattered messaging.</div></div>
-      <div class="tip-card"><div class="tip-title">Social Proof Triggers</div><div class="tip-body">Numbers, reviews, and endorsements dramatically boost credibility. Always quantify: "10,000+ customers" beats "many customers" every time.</div></div>
+      <div class="tip-card"><div class="tip-title">Social Proof Triggers</div><div class="tip-body">Numbers, reviews, and endorsements boost credibility. Always quantify: "10,000+ customers" beats "many customers" every time.</div></div>
       <div class="tip-card"><div class="tip-title">Headline Formulas That Work</div><div class="tip-body">"How to [benefit] without [pain]" — "The secret to [desire]" — "[Number] ways to [goal]" — "Why [common belief] is wrong"</div></div>
     </div>
   </div>
@@ -213,12 +304,45 @@
 
   <div class="footer">Built by Marudhupandi devaraj · Powered by <span>Google Gemini AI</span> · Marketing Content Studio</div>
 </div>
+</div>
 
 <div id="toast">Copied to clipboard!</div>
 
 <script>
-const GEMINI_API_KEY = 'AIzaSyCDZ4YdfIAraOvPQfgfB44CHiOAl6n9JQM';
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY;
+let GEMINI_API_KEY = '';
+
+function saveApiKey() {
+  const key = document.getElementById('api-key-input').value.trim();
+  if (!key.startsWith('AIza') || key.length < 30) {
+    document.getElementById('api-error').style.display = 'block';
+    return;
+  }
+  GEMINI_API_KEY = key;
+  localStorage.setItem('gemini_key', key);
+  document.getElementById('api-screen').style.display = 'none';
+  document.getElementById('app-screen').style.display = 'block';
+}
+
+function changeKey() {
+  localStorage.removeItem('gemini_key');
+  document.getElementById('api-key-input').value = '';
+  document.getElementById('api-error').style.display = 'none';
+  document.getElementById('app-screen').style.display = 'none';
+  document.getElementById('api-screen').style.display = 'flex';
+}
+
+window.onload = function() {
+  const saved = localStorage.getItem('gemini_key');
+  if (saved && saved.startsWith('AIza')) {
+    GEMINI_API_KEY = saved;
+    document.getElementById('api-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'block';
+  }
+};
+
+document.getElementById('api-key-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') saveApiKey();
+});
 
 function switchTab(id) {
   const tabs = ['social','blog','ad','email','tips','analyzer'];
@@ -226,24 +350,32 @@ function switchTab(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + id).classList.add('active');
 }
+
 function toggleBadge(el) { el.classList.toggle('sel'); }
+
 function getSelectedBadges(containerId) {
   return Array.from(document.querySelectorAll('#' + containerId + ' .badge.sel')).map(b => b.textContent).join(', ');
 }
+
 async function callGemini(prompt) {
-  const res = await fetch(GEMINI_URL, {
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY;
+  const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
   });
-  if (!res.ok) throw new Error('API error: ' + res.status);
+  if (res.status === 429) throw new Error('Rate limit reached. Please wait 60 seconds and try again.');
+  if (res.status === 400) throw new Error('Invalid API key. Click "Change Key" to update it.');
+  if (!res.ok) throw new Error('API error ' + res.status + '. Please try again.');
   const data = await res.json();
   return data.candidates[0].content.parts[0].text;
 }
+
 function setLoading(textId, outputId) {
   document.getElementById(outputId).style.display = 'block';
   document.getElementById(textId).innerHTML = '<span class="loading-spinner"></span> Generating...';
 }
+
 async function generateContent(type) {
   let prompt = '', textId = '', outputId = '';
   if (type === 'social') {
@@ -260,7 +392,7 @@ async function generateContent(type) {
     const length = document.getElementById('blog-length').value;
     const points = document.getElementById('blog-points').value || 'key trends and tips';
     outputId = 'blog-output'; textId = 'blog-output-text';
-    prompt = `Create a blog article outline for: "${topic}". Target reader: ${reader}. Length: ${length}. Key points: ${points}. Include: headline, intro, 4-5 section outline, conclusion hook.`;
+    prompt = `Create a blog outline for: "${topic}". Reader: ${reader}. Length: ${length}. Points: ${points}. Include headline, intro, 4-5 sections, conclusion.`;
   } else if (type === 'ad') {
     const adType = document.getElementById('ad-type').value;
     const framework = document.getElementById('ad-framework').value;
@@ -268,23 +400,24 @@ async function generateContent(type) {
     const usp = document.getElementById('ad-usp').value || 'best quality';
     const cta = document.getElementById('ad-cta').value || 'Learn more';
     outputId = 'ad-output'; textId = 'ad-output-text';
-    prompt = `Write a ${adType} using the ${framework} framework for: ${product}. USP: ${usp}. CTA: ${cta}. Make it persuasive and explain how ${framework} was applied.`;
+    prompt = `Write a ${adType} using ${framework} framework for: ${product}. USP: ${usp}. CTA: ${cta}. Make it persuasive.`;
   } else if (type === 'email') {
     const emailType = document.getElementById('email-type').value;
     const tone = document.getElementById('email-tone').value;
     const subject = document.getElementById('email-subject').value || 'exclusive offer';
     const msg = document.getElementById('email-msg').value || 'promote our service';
     outputId = 'email-output'; textId = 'email-output-text';
-    prompt = `Write a ${emailType} email with ${tone.toLowerCase()} tone. Subject: ${subject}. Key message: ${msg}. Include subject line, preview text, body, and CTA.`;
+    prompt = `Write a ${emailType} email with ${tone.toLowerCase()} tone. Subject: ${subject}. Message: ${msg}. Include subject line, body, and CTA.`;
   }
   setLoading(textId, outputId);
   try {
     const result = await callGemini(prompt);
     document.getElementById(textId).textContent = result;
   } catch (e) {
-    document.getElementById(textId).textContent = 'Error: ' + e.message + '. Please try again in a moment.';
+    document.getElementById(textId).textContent = e.message;
   }
 }
+
 async function analyzeCopy() {
   const text = document.getElementById('analyze-input').value;
   if (!text.trim()) { alert('Please paste some copy first.'); return; }
@@ -305,9 +438,10 @@ async function analyzeCopy() {
     document.getElementById('bar-overall').style.width = d.overall + '%';
     document.getElementById('analyze-feedback').textContent = d.feedback;
   } catch (e) {
-    document.getElementById('analyze-feedback').textContent = 'Could not parse analysis. Please try again.';
+    document.getElementById('analyze-feedback').textContent = e.message || 'Could not analyze. Please try again.';
   }
 }
+
 function copyOutput(id) {
   const text = document.getElementById(id).textContent;
   navigator.clipboard.writeText(text).then(() => {
